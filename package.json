@@ -1,0 +1,19 @@
+{
+  "name": "proxet-tournament.2021.js",
+  "version": "1.0.0",
+  "description": "You are the part of team who are doing online game about fighting vehicle team battles.  Your today's task - to implement algorithm about team compilation for the battle session.  You need to select 9 players for each team with longest waiting time in lobby and each team should contain 3 vehicles of each of 3 possible types. ## Technical task ### Team generator We've already prepared all battle abstractions, and we're using ``TeamGenerator`` class to retrieve teams for battle. So, make sure you use it to implement your algorithm.",
+  "main": "index.ts",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "author": "Proxet",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "jest": "^27.3.1",
+    "ts-jest": "^27.0.7",
+    "tsconfig-paths": "^3.11.0",
+    "typescript": "^4.4.4"
+  }
+}
