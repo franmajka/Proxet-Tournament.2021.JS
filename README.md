@@ -1,8 +1,8 @@
 # Proxet tournament 2021 (JS)
 ## Briefing
-You are a part of a developer team who is tasked with making an online game about battles between teams of fighter vehicles.  
-Your today's task is to implement an algorithm for automatic matchmaking - compiling teams for an online battle.  
-You need to select 9 players for each of two opposing teams with the longest waiting time in lobby, and each team should contain 3 vehicles of each of 3 possible vehicle types.
+You are a part of a developer team who is tasked with making an online game about battles between teams of fighting vehicles.
+Your  task today is to implement an algorithm for automatic matchmaking - compiling teams for an online battle.
+You need to select 9 players for each of two opposing teams with the longest waiting time in the lobby, and each team should contain 3 vehicles of each of 3 possible vehicle types.
 
 ## Technical task
 ### Team generator
@@ -29,5 +29,5 @@ Also, there is a pipeline that runs this test in a docker; Make sure you don't b
 
 ## Notes
 1. We'll run the pipelines to calculate the execution time, so please ensure that your code is fast.
-1. We'll read the code, so please keep it clean and readable. Please add comments to your code when necessary.
+1. We'll read the code, so please keep it clean and readable. Please add comments to your code where necessary.
 1. Good luck!
