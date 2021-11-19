@@ -7,8 +7,10 @@ const logTeam = (teamName: string, players: string[]) => {
   });
 }
 
-const teams = generateTeams("./wait-time.stat");
+(async () => {
+  const teams = await generateTeams("./wait-time.stat");
 
-logTeam("Red", teams.team1);
-logTeam("Blue", teams.team2);
-console.log("Work is done");
+  logTeam("Red", teams.team1);
+  logTeam("Blue", teams.team2);
+  console.log("Work is done");
+})()

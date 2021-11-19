@@ -12,7 +12,11 @@ describe('TournamentTests', () => {
   });
 
   it('should generate ideal teams', async () => {
-    const teams = generateTeams(filePath);
+    // In general it's not right to change tests to fit your code
+    // but it'll be much harder to not use async / await syntax
+    // Also I have no idea why the test func should be async if
+    // there is no code that uses promises
+    const teams = await generateTeams(filePath);
 
     // Should have 9 players in both teams
     expect(teams.team1).toHaveLength(9);
