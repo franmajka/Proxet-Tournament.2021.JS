@@ -32,7 +32,7 @@ export interface PlayerInQueue {
 export type PlayerQueue = PriorityQueue<PlayerInQueue>;
 
 const readQueueFile = async (filePath: string) : Promise<PlayerQueue[]> => {
-  // Players with the most waitTime will be the first in queue
+  // Players with the most waitTime will be the first in a queue
   const compare: CompareFunc<PlayerInQueue> = (left, right) => {
     return left.waitTime > right.waitTime;
   }
