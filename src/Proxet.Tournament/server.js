@@ -60,7 +60,7 @@ app.get("/api/v1/healthcheck", (APIrequest, APIresponse) => {
 app.post("/api/v1/lobby", parser, (APIrequest, APIresponse) => {
 	// We can't add players with wrong data format, can we?
 	if (!areKeysEqual(APIrequest.body, { nickname: [], vehicleType: "" })) {
-		APIresponse.status(400).send("Wrong player data");
+		APIresponse.status(503).send("Wrong player data");
 		return;
 	}
 	MongoClient.connect(MongoURI, (clientErr, client) => {
