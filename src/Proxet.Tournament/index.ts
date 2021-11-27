@@ -1,16 +1,20 @@
-import { generateTeams } from "./generateTeams";
+import { getDB } from "../../db/connectDB";
+import { PlayerInDB } from "../../db/types";
+import { resolve } from "path";
 
-const logTeam = (teamName: string, players: string[]) => {
-  console.log(`Team ${teamName}:`);
-  players.forEach((player) => {
-    console.log(player);
-  });
-}
+import { startServer } from "../../server/server";
+import { PriorityQueue } from "./PriorityQueue";
 
 (async () => {
-  const teams = await generateTeams("./wait-time.stat");
+  console.log("Start");
 
-  logTeam("Red", teams.team1);
-  logTeam("Blue", teams.team2);
-  console.log("Work is done");
+  // I don't really know how should I use db so it simply exists...
+  const db = await getDB();
+  console.log("DB connected");
+
+
+
+  await startServer();
+
+
 })()

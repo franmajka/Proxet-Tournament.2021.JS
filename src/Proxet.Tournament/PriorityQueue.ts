@@ -40,6 +40,12 @@ export class PriorityQueue<T> {
     }
   }
 
+  // Gives access to iterate over queue
+  *[Symbol.iterator]() : Generator<T, void, undefined>{
+    yield* this._elements;
+  }
+
+
   public push(element: T) : void {
     let current = this._elements.push(element) - 1;
 
@@ -72,6 +78,10 @@ export class PriorityQueue<T> {
     this.heapify(0);
 
     return ret;
+  }
+
+  public clear() : void {
+    this._elements.length = 0;
   }
 
 

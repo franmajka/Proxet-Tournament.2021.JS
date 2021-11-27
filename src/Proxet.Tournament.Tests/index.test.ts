@@ -1,37 +1,65 @@
-import fs from 'fs';
+import { isConnectedRequest } from './requests/isConnected'
+import { addPlayer } from './requests/addPlayer';
+import { getLobbySize } from './requests/getLobbySize';
+import { clearLobby } from './requests/clearLobby';
+import { generateTeams } from './requests/generateTeams';
 
-import { generateTeams } from '../Proxet.Tournament/generateTeams';
+const URL = 'http://localhost:3000';
 
-import { class1Users, class2Users, class3Users } from './bestPlayers';
 
 describe('TournamentTests', () => {
-  const filePath = './src/Proxet.Tournament/wait-time.stat';
-
-  it('should stat file exist', async () => {
-    expect(fs.existsSync('./src/Proxet.Tournament/wait-time.stat')).toBe(true);
+  it('DB connected', async () => {
+    const statusCode = await isConnectedRequest(URL);
+    expect(statusCode).toBe(200);
   });
 
-  it('should generate ideal teams', async () => {
-    // In general it's not right to change tests to fit your code
-    // but it'll be much harder to not use async / await syntax
-    // Also I have no idea why the test func should be async if
-    // there is no code that uses promises
-    const teams = await generateTeams(filePath);
+  it('Add player to lobby', async () => {
+    await clearLobby(URL);
 
-    // Should have 9 players in both teams
-    expect(teams.team1).toHaveLength(9);
-    expect(teams.team2).toHaveLength(9);
+    expect(await addPlayer(URL, {
+      name: "test",
+      vehicleClass: 1
+    })).toBe(201);
 
-    // Should not have the same player in both teams
-    expect(teams.team1.every(player => !teams.team2.includes(player))).toBe(true);
+    expect(await getLobbySize(URL)).toBe(1);
+  });
 
-    // Teams should each contain 3 players with most wait time of every vehicle class
-    const assertClass = (bestPlayers: string[]) => {
-      expect(teams.team1.filter(player => bestPlayers.includes(player))).toHaveLength(3);
-      expect(teams.team2.filter(player => bestPlayers.includes(player))).toHaveLength(3);
+  it('Try to generate team with not enough players', async () => {
+    expect((await generateTeams(URL)).status).toBe(204);
+  });
+
+  it('Add some players', async () => {
+    await clearLobby(URL);
+    const nPlayers = 10;
+
+    for (let i = 0; i < nPlayers; i++) {
+      expect(await addPlayer(URL, {
+        name: `${i}`,
+        vehicleClass: Math.floor(Math.random() * 3) + 1
+      })).toBe(201);
     }
-    assertClass(class1Users);
-    assertClass(class2Users);
-    assertClass(class3Users);
+
+    expect(await getLobbySize(URL)).toBe(nPlayers);
   });
+
+  it('Generate teams', async () => {
+    await clearLobby(URL);
+
+    for (let vehicleClass = 1; vehicleClass <= 3; vehicleClass++) {
+      for (let i = 0; i < 6; i++) {
+        expect(await addPlayer(URL, {
+          name: `${vehicleClass}${i}`,
+          vehicleClass
+        })).toBe(201);
+      }
+    }
+
+    expect(await getLobbySize(URL)).toBe(18);
+
+    expect((await generateTeams(URL)).status).toBe(200);
+
+    expect(await getLobbySize(URL)).toBe(0);
+  });
+
+  
 });
